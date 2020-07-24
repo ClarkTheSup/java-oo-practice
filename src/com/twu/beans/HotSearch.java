@@ -5,14 +5,12 @@ public abstract class HotSearch {
     private int voteNum;
     private boolean isBought;
     private double boughtMoney;
-    private int ranking;
 
     public HotSearch(String name) {
         this.name = name;
         this.voteNum = 0;
         this.isBought = false;
         this.boughtMoney = 0;
-        this.ranking = Integer.MAX_VALUE; //无限大，越大排名越靠后
     }
 
     @Override
@@ -53,11 +51,4 @@ public abstract class HotSearch {
         this.boughtMoney = boughtMoney;
     }
 
-    public int getRanking() {
-        return ranking;
-    }
-
-    public void setRanking(int ranking) {
-        this.ranking = ranking;
-    }
 }
