@@ -1,4 +1,4 @@
-package com.twu;
+package com.twu.beans;
 
 public abstract class HotSearch {
     private String name;
@@ -15,8 +15,8 @@ public abstract class HotSearch {
 
     @Override
     public String toString() {
-        return name + " " + voteNum + " "
-                + isBrought + " " + boughtMoney;
+        return name + " | " + voteNum + " | "
+                + isBrought + " | " + boughtMoney + " |";
     }
 
     public String getName() {

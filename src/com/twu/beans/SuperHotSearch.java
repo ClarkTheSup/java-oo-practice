@@ -1,7 +1,9 @@
-package com.twu;
+package com.twu.beans;
+
+import com.twu.beans.HotSearch;
 
 public class SuperHotSearch extends HotSearch {
-    public SuperHotSearch(String name, int voteNum, boolean isBrought, double boughtMoney) {
+    public SuperHotSearch(String name) {
         super(name);
     }
 }
