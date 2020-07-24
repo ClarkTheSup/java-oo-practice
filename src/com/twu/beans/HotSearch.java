@@ -3,20 +3,22 @@ package com.twu.beans;
 public abstract class HotSearch {
     private String name;
     private int voteNum;
-    private boolean isBrought;
+    private boolean isBought;
     private double boughtMoney;
+    private int ranking;
 
     public HotSearch(String name) {
         this.name = name;
         this.voteNum = 0;
-        this.isBrought = false;
+        this.isBought = false;
         this.boughtMoney = 0;
+        this.ranking = Integer.MAX_VALUE; //无限大，越大排名越靠后
     }
 
     @Override
     public String toString() {
         return name + " | " + voteNum + " | "
-                + isBrought + " | " + boughtMoney + " |";
+                + isBought + " | " + boughtMoney + " |";
     }
 
     public String getName() {
@@ -35,12 +37,12 @@ public abstract class HotSearch {
         this.voteNum = voteNum;
     }
 
-    public boolean isBrought() {
-        return isBrought;
+    public boolean isBought() {
+        return isBought;
     }
 
-    public void setBrought(boolean brought) {
-        isBrought = brought;
+    public void setBought(boolean brought) {
+        isBought = brought;
     }
 
     public double getBoughtMoney() {
@@ -49,5 +51,13 @@ public abstract class HotSearch {
 
     public void setBoughtMoney(double boughtMoney) {
         this.boughtMoney = boughtMoney;
+    }
+
+    public int getRanking() {
+        return ranking;
+    }
+
+    public void setRanking(int ranking) {
+        this.ranking = ranking;
     }
 }

@@ -17,7 +17,10 @@ public class UserCommandController extends CommandController {
                     break;
             case 2: hotSearchBillboard.addHotSearch(role.createPlainHotSearch());
                     break;
-            case 3: hotSearchBillboard.vote(role.voteForSearch());
+            case 3: hotSearchBillboard.vote(role.voteForHotSearch());
+                    break;
+            case 4: hotSearchBillboard.userPayForHotSearch(role.payForHotSearch());
+                    break;
         }
     }
 }

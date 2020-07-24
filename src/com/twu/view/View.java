@@ -16,9 +16,10 @@ public class View {
     public void showView() {
         int command;
         do {
+            System.out.println("您可以进行的操作有：");
             System.out.println("1. 用户登录");
             System.out.println("2. 退出");
-            System.out.print("Please enter command number: ");
+            System.out.print("请输入数字：");
 
             Scanner scanner = new Scanner(System.in);
             command = scanner.nextInt();
@@ -29,7 +30,7 @@ public class View {
             } else if (loginRole instanceof Admin) {
                 new AdminView((Admin) loginRole).showView();
             } else {
-                throw new RuntimeException("Role Type Exception.");
+                throw new RuntimeException("用户类型异常.");
             }
         } while (command != 2);
     };

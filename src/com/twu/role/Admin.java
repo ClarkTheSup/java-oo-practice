@@ -12,7 +12,7 @@ public class Admin extends Role {
         super(name);
     }
     public HotSearch createSuperHotSearch() {
-        System.out.print("Please input super hot search name: ");
+        System.out.print("请输入超级热搜名：");
         Scanner scanner = new Scanner(System.in);
         String name = scanner.next();
         return new SuperHotSearch(name);

@@ -13,7 +13,7 @@ public abstract class Role {
     }
 
     public HotSearch createPlainHotSearch() {
-        System.out.print("Please input plain hot search name: ");
+        System.out.print("请输入普通热搜名：");
         Scanner scanner = new Scanner(System.in);
         String name = scanner.next();
         return new PlainHotSearch(name);

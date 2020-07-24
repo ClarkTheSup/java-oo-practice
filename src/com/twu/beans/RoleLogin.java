@@ -24,7 +24,7 @@ public class RoleLogin {
     public Role login() {
         //命令行输入用户名
         String loginRoleName;
-        System.out.print("Please input role name: ");
+        System.out.print("请输入用户名：");
         Scanner scanner = new Scanner(System.in);
         loginRoleName = scanner.next();
 
@@ -33,7 +33,7 @@ public class RoleLogin {
         List selectLoginList = roleList.stream().filter(
                 role -> role.getName().equals(loginRoleName)).collect(Collectors.toList());
         if (selectLoginList.size() > 1 || selectLoginList.size() <= 0) {
-            throw new RuntimeException("Role Number Exception.");
+            throw new RuntimeException("用户数量异常");
         } else {
             loginRole = (Role) selectLoginList.get(0);
         }

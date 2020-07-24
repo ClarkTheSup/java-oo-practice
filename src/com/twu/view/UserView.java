@@ -17,6 +17,8 @@ public class UserView extends View {
 
     @Override
     public void showView() {
+        System.out.println("欢迎！User用户：" + this.role.getName());
+
         int command;
         do {
             System.out.println("1. 查看热搜排行榜");
@@ -24,7 +26,7 @@ public class UserView extends View {
             System.out.println("3. 给热搜事件投票");
             System.out.println("4. 购买热搜");
             System.out.println("5. 退出");
-            System.out.print("Please enter command number: ");
+            System.out.print("请输入数字：");
 
             Scanner scanner = new Scanner(System.in);
             command = scanner.nextInt();

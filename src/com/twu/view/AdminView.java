@@ -18,13 +18,15 @@ public class AdminView extends View {
 
     @Override
     public void showView() {
+        System.out.println("欢迎！Admin用户：" + this.role.getName());
+
         int command;
         do {
             System.out.println("1. 查看热搜排行榜");
             System.out.println("2. 添加热搜");
             System.out.println("3. 添加超级热搜");
             System.out.println("4. 退出");
-            System.out.print("Please enter command number: ");
+            System.out.print("请输入数字：");
 
             Scanner scanner = new Scanner(System.in);
             command = scanner.nextInt();
