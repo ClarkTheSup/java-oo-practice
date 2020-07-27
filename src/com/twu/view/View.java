@@ -1,20 +1,19 @@
 package com.twu.view;
 
-import com.twu.controller.LoginController;
-import com.twu.role.Admin;
-import com.twu.role.Role;
-import com.twu.role.User;
+import com.twu.controller.CommandController;
+import com.twu.controller.LoginCommandController;
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class View {
-    private LoginController loginController;
-    private Role loginRole;
+    private CommandController loginCommandController;
 
-    public View(){this.loginController = new LoginController();}
+
+    public View(){this.loginCommandController = new LoginCommandController();}
 
     public void showView() {
-        int command;
+        int command = -1; //初始化命令
         do {
             System.out.println("您可以进行的操作有：");
             System.out.println("1. 用户登录");
@@ -22,16 +21,12 @@ public class View {
             System.out.print("请输入数字：");
 
             Scanner scanner = new Scanner(System.in);
-            command = scanner.nextInt();
-            loginRole = loginController.getLoginCommand(command);
-
-            if (loginRole instanceof User) {
-                new UserView((User) loginRole).showView();
-            } else if (loginRole instanceof Admin) {
-                new AdminView((Admin) loginRole).showView();
-            } else {
-                throw new RuntimeException("用户类型异常.");
+            try {
+                command = scanner.nextInt();
+            } catch (InputMismatchException e) {
             }
+
+            loginCommandController.getCommand(command);
         } while (command != 2);
     };
 }

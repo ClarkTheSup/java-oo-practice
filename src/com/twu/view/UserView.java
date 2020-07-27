@@ -4,6 +4,7 @@ import com.twu.controller.CommandController;
 import com.twu.controller.UserCommandController;
 import com.twu.role.User;
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class UserView extends View {
@@ -19,7 +20,7 @@ public class UserView extends View {
     public void showView() {
         System.out.println("欢迎！User用户：" + this.role.getName());
 
-        int command;
+        int command = -1;
         do {
             System.out.println("1. 查看热搜排行榜");
             System.out.println("2. 添加热搜");
@@ -29,7 +30,10 @@ public class UserView extends View {
             System.out.print("请输入数字：");
 
             Scanner scanner = new Scanner(System.in);
-            command = scanner.nextInt();
+            try {
+                command = scanner.nextInt();
+            } catch (InputMismatchException e) {
+            }
             commandController.getCommand(command);
         } while (command != 5);
     }

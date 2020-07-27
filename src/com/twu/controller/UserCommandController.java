@@ -21,6 +21,9 @@ public class UserCommandController extends CommandController {
                     break;
             case 4: hotSearchBillboard.userPayForHotSearch(role.payForHotSearch());
                     break;
+            case 5: System.out.println("退出成功！");
+                    break;
+            default: System.out.println("命令输入有误！");
         }
     }
 }

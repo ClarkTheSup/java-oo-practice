@@ -5,6 +5,7 @@ import com.twu.controller.CommandController;
 import com.twu.role.Admin;
 import com.twu.role.Role;
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class AdminView extends View {
@@ -20,7 +21,7 @@ public class AdminView extends View {
     public void showView() {
         System.out.println("欢迎！Admin用户：" + this.role.getName());
 
-        int command;
+        int command = -1;
         do {
             System.out.println("1. 查看热搜排行榜");
             System.out.println("2. 添加热搜");
@@ -29,7 +30,11 @@ public class AdminView extends View {
             System.out.print("请输入数字：");
 
             Scanner scanner = new Scanner(System.in);
-            command = scanner.nextInt();
+            try {
+                command = scanner.nextInt();
+            } catch (InputMismatchException e) {
+            }
+
             commandController.getCommand(command);
         } while (command != 4);
     }

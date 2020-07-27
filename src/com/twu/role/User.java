@@ -3,6 +3,7 @@ package com.twu.role;
 import com.twu.role.Role;
 
 import java.util.HashMap;
+import java.util.InputMismatchException;
 import java.util.Map;
 import java.util.Scanner;
 
@@ -21,15 +22,24 @@ public class User extends Role {
         System.out.print("热搜名: ");
         String name = scanner.next();
         System.out.print("票数: ");
-        int voteNum = scanner.nextInt();
-
-        //判断票数是否充足
-        if (voteNum > this.heldVoteNum) {
-            System.out.println("票数不足.");
+        int voteNum = -1;
+        try {
+            voteNum = scanner.nextInt();
+        } catch (InputMismatchException e) {
+            System.out.println("票数输入有误！");
             return map;
         }
 
-        this.heldVoteNum = this.heldVoteNum - voteNum; //更新票数
+        //判断票数是否充足
+        if (voteNum > this.heldVoteNum) {
+            System.out.println("票数不足！");
+            return map;
+        } else if (voteNum < 0) {
+            System.out.println("票数输入有误！");
+            return map;
+        }
+
+        map.put("User", this);
         map.put("name", name);
         map.put("voteNum", voteNum);
         return map;
@@ -41,10 +51,17 @@ public class User extends Role {
         Map map = new HashMap();
         System.out.print("热搜名: ");
         String name = scanner.next();
-        System.out.print("购买金额: ");
-        double boughtMoney = scanner.nextDouble();
-        System.out.print("购买的排名: ");
-        int ranking = scanner.nextInt();
+        double boughtMoney = 0;
+        int ranking = 0;
+        try {
+            System.out.print("购买金额: ");
+            boughtMoney = scanner.nextDouble();
+            System.out.print("购买的排名: ");
+            ranking = scanner.nextInt();
+        } catch (InputMismatchException e) {
+            System.out.println("请输入正确的数字！");
+            return map;
+        }
 
         map.put("name", name);
         map.put("boughtMoney", boughtMoney);

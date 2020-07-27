@@ -17,6 +17,10 @@ public class AdminCommandController extends CommandController {
             case 2: hotSearchBillboard.addHotSearch(role.createPlainHotSearch());
                     break;
             case 3: hotSearchBillboard.addHotSearch(role.createSuperHotSearch());
+                    break;
+            case 4: System.out.println("退出成功！");
+                break;
+            default: System.out.println("命令输入有误！");
         }
     }
 }

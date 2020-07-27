@@ -1,5 +1,7 @@
 package com.twu.beans;
 
+import com.twu.role.User;
+
 import java.util.*;
 import java.util.stream.Stream;
 
@@ -31,15 +33,21 @@ public class HotSearchBillboard {
         )) {
             this.hotSearchList.add(hotSearch);
         } else {
-            System.out.println("Add hot search failed! Duplicate hot search name.");
+            System.out.println("添加热搜失败! 热搜名重复！");
         }
     }
 
     //热搜投票
     public void vote (Map map) {
+        String name = (String) map.get("name");
+
+        if (name == null) {
+            return;
+        }
+
         //查找名字匹配的热搜
         Optional<HotSearch> foundOptional = this.hotSearchList.stream().filter(
-                hotSearch -> hotSearch.getName().toLowerCase().equals(((String) map.get("name")).toLowerCase())
+                hotSearch -> hotSearch.getName().toLowerCase().equals(name.toLowerCase())
         ).findFirst();
         if (foundOptional.isEmpty()) {
             System.out.println("输入的热搜不存在!"); //名字不匹配则抛出异常
@@ -47,28 +55,37 @@ public class HotSearchBillboard {
         }
 
         //判断热搜类型并修改热搜票数
+        int voteNum = (int) map.get("voteNum");
         HotSearch foundHotSearch = foundOptional.get();
         if (foundHotSearch instanceof PlainHotSearch) { //如果是普通热搜，票数直接相加
-            foundHotSearch.setVoteNum(foundHotSearch.getVoteNum() + (int) map.get("voteNum"));
+            foundHotSearch.setVoteNum(foundHotSearch.getVoteNum() + voteNum );
         } else if (foundHotSearch instanceof SuperHotSearch) { //超级热搜票数翻倍
-            foundHotSearch.setVoteNum(foundHotSearch.getVoteNum() + ((int) map.get("voteNum") * 2));
+            foundHotSearch.setVoteNum(foundHotSearch.getVoteNum() + (voteNum * 2));
         }
+
+        User user = (User) map.get("User");
+        user.setHeldVoteNum(user.getHeldVoteNum() - voteNum); //更新票数
+
         this.sort();//投票后热搜排序
     }
 
     //购买热搜
     public void userPayForHotSearch(Map map) {
         String name = (String) map.get("name");
-        double boughtMoney = (double) map.get("boughtMoney");
-        int ranking = (int) map.get("ranking");
+        if (name == null) {
+            return;
+        }
+
 
         //判断ranking输入是否合法
+        int ranking = (int) map.get("ranking");
         if (ranking < 1 || ranking > this.hotSearchList.size()) {
             System.out.println("排名输入有误！");
             return;
         }
 
         //判断输入金额是否合法
+        double boughtMoney = (double) map.get("boughtMoney");
         if (boughtMoney <= 0) {
             System.out.println("金额输入有误！");
             return;
@@ -89,6 +106,7 @@ public class HotSearchBillboard {
             inputHotSearch.setBought(true);
             inputHotSearch.setBoughtMoney(boughtMoney);
             Collections.swap(this.hotSearchList, ranking-1, this.hotSearchList.indexOf(inputHotSearch));
+            System.out.println("热搜购买成功！");
         } else {
             double currentBoughtMoney = inputHotSearch.getBoughtMoney() + boughtMoney;
             if (currentBoughtMoney > rankingHotSearch.getBoughtMoney()) {
@@ -115,7 +133,7 @@ public class HotSearchBillboard {
                 unBoughtHotSearchList.add(hotSearch);
             }
         }
-        unBoughtHotSearchList.sort(new SortedByVoteNumComparator());
+        unBoughtHotSearchList.sort(new SortedByVoteNumComparator()); //没购买的热搜先排序
         //排序后依次覆盖原列表中没购买的热搜
         int i = 0; //指向this.hotSearchList
         int j = 0; //指向unBoughtHotSearchList

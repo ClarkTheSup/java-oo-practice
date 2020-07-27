@@ -32,8 +32,12 @@ public class RoleLogin {
         Role loginRole;
         List selectLoginList = roleList.stream().filter(
                 role -> role.getName().equals(loginRoleName)).collect(Collectors.toList());
-        if (selectLoginList.size() > 1 || selectLoginList.size() <= 0) {
-            throw new RuntimeException("用户数量异常");
+        if (selectLoginList.size() > 1) {
+            System.out.print("用户数量异常！");
+            return null;
+        } else if (selectLoginList.size() <= 0) {
+            System.out.print("用户不存在！");
+            return null;
         } else {
             loginRole = (Role) selectLoginList.get(0);
         }
